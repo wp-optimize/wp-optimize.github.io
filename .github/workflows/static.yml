@@ -43,13 +43,11 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
     
-      - name: Cleanup root directory except .github
+      - name: Cleanup root directory except .github and .git
         run: |
-          find . -mindepth 1 -maxdepth 1 -not -name .github -exec rm -rf {} +
+          find . -mindepth 1 -maxdepth 1 -not -name .github -not -name .git -exec rm -rf {} +
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add .
           git commit -m "Cleanup repository except .github"
           git push origin main
-
-
